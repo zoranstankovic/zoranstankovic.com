@@ -1,0 +1,34 @@
+---
+interface Props {
+  size?: 'md' | 'sm';
+}
+const { size = 'md' } = Astro.props;
+---
+
+<span class:list={['hanko', `hanko--${size}`]} aria-hidden="true">
+  ZS
+</span>
+
+<style>
+  .hanko {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: var(--color-accent);
+    color: #fff;
+    font-family: var(--font-heading);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    border-radius: 2px;
+  }
+  .hanko--md {
+    inline-size: 2rem;
+    block-size: 2rem;
+    font-size: 0.8125rem;
+  }
+  .hanko--sm {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    font-size: 0.625rem;
+  }
+</style>

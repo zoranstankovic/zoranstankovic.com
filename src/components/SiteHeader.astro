@@ -1,0 +1,70 @@
+---
+import { site } from '../config/site';
+import HankoLogo from './HankoLogo.astro';
+import SiteNav from './SiteNav.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  pathname: string;
+}
+const { pathname } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href="/">
+      <HankoLogo />
+      <span>{site.name}</span>
+    </a>
+    <div class="site-header__actions">
+      <SiteNav pathname={pathname} />
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block: var(--space-5);
+  }
+  .site-header__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-heading);
+    font-size: var(--step-1);
+    line-height: 1;
+    text-decoration: none;
+  }
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  /* On mobile the theme toggle sits before the hamburger; the DOM keeps the
+     desktop order so keyboard focus follows the wider layout. */
+  @media (max-width: 767.98px) {
+    .site-header {
+      border-block-end: 1px solid var(--color-rule);
+    }
+    .site-header__inner {
+      padding-block: var(--space-3);
+    }
+    .site-header__brand {
+      font-size: var(--step-0);
+      gap: var(--space-2);
+    }
+    .site-header__actions {
+      flex-direction: row-reverse;
+      gap: var(--space-3);
+    }
+  }
+</style>
