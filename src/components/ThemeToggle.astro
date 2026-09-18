@@ -1,0 +1,32 @@
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark theme">
+  <span aria-hidden="true">月</span>
+</button>
+
+<script>
+  const root = document.documentElement;
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]')) {
+    button.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+    button.addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      button.setAttribute('aria-pressed', String(next === 'dark'));
+      try {
+        localStorage.setItem('theme', next);
+      } catch {}
+    });
+  }
+</script>
+
+<style>
+  .theme-toggle {
+    inline-size: 2.25rem;
+    block-size: 2.25rem;
+    border: 1px solid var(--color-rule);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    cursor: pointer;
+  }
+  .theme-toggle:hover { border-color: var(--color-accent); }
+</style>
