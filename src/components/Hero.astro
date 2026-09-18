@@ -1,0 +1,113 @@
+---
+import { site } from '../config/site';
+import EnsoMark from './EnsoMark.astro';
+---
+
+<section class="hero container">
+  <p class="hero__katakana" lang="ja" aria-hidden="true">
+    {site.nameKatakana}
+  </p>
+  <div class="hero__body">
+    <p class="label">
+      {site.role} — {site.location}
+    </p>
+    <h1 class="hero__title">
+      I build backends
+      <br /> and write about them.
+    </h1>
+    <p class="hero__lede">
+      12+ years with PHP, Laravel and Go. This site is my notebook for code, the books I read and
+      the tools I use.
+    </p>
+    <p class="hero__links">
+      <a class="hero__link hero__link--primary" href="/blog">
+        Read the blog →
+      </a>
+      <a class="hero__link" href={site.cvPath}>
+        View CV →
+      </a>
+    </p>
+  </div>
+  <div class="hero__enso">
+    <EnsoMark />
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    padding-block: var(--space-6);
+    border-block-end: 1px solid var(--color-rule);
+    overflow: clip;
+    /* Lets the ensō bleed to the viewport edge on mobile without horizontal scroll. */
+    /* 4vw rather than var(--gutter): Chrome rejects clamp() in this property. */
+    overflow-clip-margin: 4vw;
+  }
+
+  .hero__katakana {
+    display: none;
+    writing-mode: vertical-rl;
+    font-family: var(--font-heading);
+    font-size: var(--step--1);
+    letter-spacing: 0.3em;
+    line-height: 1;
+    color: var(--color-muted);
+  }
+
+  .hero__body > * + * {
+    margin-block-start: var(--space-5);
+  }
+  .hero__title {
+    font-size: var(--step-4);
+    line-height: 1.15;
+  }
+  .hero__lede {
+    max-inline-size: 34rem;
+    font-size: 1.125rem;
+    color: var(--color-muted);
+  }
+  .hero__links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding-block-start: var(--space-2);
+  }
+  .hero__link {
+    padding-block-end: var(--space-1);
+    border-block-end: 1px solid var(--color-rule);
+    text-decoration: none;
+  }
+  .hero__link--primary {
+    border-block-end-color: var(--color-accent);
+  }
+
+  .hero__enso {
+    position: absolute;
+    z-index: -1;
+    inset-block-start: var(--space-5);
+    inset-inline-end: calc(-1 * var(--gutter) - 3rem);
+    inline-size: min(22rem, 60vw);
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      grid-template-columns: 2rem 1fr;
+      column-gap: clamp(var(--space-4), 4vw, var(--space-6));
+      padding-block: var(--space-8);
+    }
+    .hero__katakana {
+      display: block;
+    }
+    .hero__links {
+      flex-direction: row;
+      gap: var(--space-5);
+    }
+    .hero__enso {
+      inset-block-start: calc(var(--space-8) - var(--space-3));
+      inset-inline-end: 0;
+    }
+  }
+</style>
