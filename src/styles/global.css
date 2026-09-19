@@ -148,3 +148,44 @@ pre {
   border: 0;
   border-block-start: 1px solid var(--color-rule);
 }
+
+/* Code blocks: Shiki emits both themes as CSS variables (`defaultColor: false`). */
+.astro-code,
+.astro-code span {
+  color: var(--shiki-light);
+}
+:root[data-theme='dark'] .astro-code,
+:root[data-theme='dark'] .astro-code span {
+  color: var(--shiki-dark);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .astro-code,
+  :root:not([data-theme='light']) .astro-code span {
+    color: var(--shiki-dark);
+  }
+}
+.astro-code {
+  background: var(--color-surface);
+}
+
+.code-frame {
+  margin-block: var(--space-5);
+  background: var(--color-surface);
+}
+.code-frame .astro-code {
+  margin: 0;
+}
+.code-frame__caption {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-rule);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-muted);
+}
+.code-frame__lang {
+  margin-inline-start: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
