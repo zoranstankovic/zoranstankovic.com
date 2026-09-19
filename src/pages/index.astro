@@ -5,36 +5,10 @@ import Hero from '../components/Hero.astro';
 import InfoCard from '../components/InfoCard.astro';
 import PostList from '../components/PostList.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import type { PostListEntry } from '../lib/types';
+import { getPosts } from '../lib/content';
+import { toListEntry } from '../lib/posts';
 
-// Placeholder rows from the mockup; replaced with real posts in Task 11.
-const placeholderPosts: PostListEntry[] = [
-  { href: '#', title: 'Strings in Go: An Introduction', date: new Date('2022-11-20'), topic: 'Go' },
-  {
-    href: '#',
-    title: 'Get Up to Speed with Bytes, Runes and Printf in Go',
-    date: new Date('2022-11-12'),
-    topic: 'Go',
-  },
-  {
-    href: '#',
-    title: 'Numeric Data Types Explained in Go',
-    date: new Date('2022-10-29'),
-    topic: 'Go',
-  },
-  {
-    href: '#',
-    title: 'Boolean Data Type Explained in Go',
-    date: new Date('2022-10-15'),
-    topic: 'Go',
-  },
-  {
-    href: '#',
-    title: 'Data Types in Go: An Introduction',
-    date: new Date('2022-10-05'),
-    topic: 'Go',
-  },
-];
+const latestPosts = (await getPosts()).slice(0, 5).map(toListEntry);
 
 // Placeholder card content from the mockup; replaced with the Now and Uses pages in Task 14.
 const nowLines = [
@@ -49,7 +23,7 @@ const usesLines = ['macOS', 'Ghostty · zsh · Starship', 'JetBrains IDEs', 'Obs
   <div class="container home">
     <section class="home__writing">
       <SectionHeading kanji="記事" label="Writing" href="/blog" linkLabel="All posts" />
-      <PostList entries={placeholderPosts} />
+      <PostList entries={latestPosts} />
       <a class="home__more" href="/blog">
         All posts →
       </a>

@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { getPosts } from '../../lib/content';
+import { toListEntry } from '../../lib/posts';
+
+const entries = (await getPosts()).map(toListEntry);
+---
+
+<Base
+  title="Writing — Zoran Stankovic"
+  description="Articles on Go, JavaScript, shell and learning."
+>
+  <div class="container blog-index">
+    <SectionHeading kanji="記事" label="Writing" level={1} />
+    <PostList entries={entries} />
+  </div>
+</Base>
+
+<style>
+  .blog-index {
+    padding-block: var(--space-6);
+  }
+  @media (min-width: 768px) {
+    .blog-index {
+      padding-block: var(--space-7);
+    }
+  }
+</style>
