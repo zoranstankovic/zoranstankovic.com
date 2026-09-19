@@ -1,5 +1,5 @@
 ---
-import { site } from '../config/site';
+import { heroKicker, site } from '../config/site';
 import EnsoMark from './EnsoMark.astro';
 ---
 
@@ -8,9 +8,7 @@ import EnsoMark from './EnsoMark.astro';
     {site.nameKatakana}
   </p>
   <div class="hero__body">
-    <p class="label">
-      {site.role} — {site.location}
-    </p>
+    <p class="label">{heroKicker(site.role, site.stack)}</p>
     <h1 class="hero__title">
       I build backends
       <br /> and write about them.

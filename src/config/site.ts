@@ -16,10 +16,11 @@ export const site = {
   url: 'https://zoranstankovic.com',
   name: 'Zoran Stankovic',
   nameKatakana: 'ゾラン・スタンコビッチ',
-  role: 'Backend developer',
-  location: 'Magdeburg, DE',
-  description: 'Backend developer writing about PHP, Laravel and Go.',
-  bio: 'Backend developer. PHP, Laravel and Go.',
+  role: 'Software developer',
+  // Shown after the role in the hero kicker. Set to [] to show the role alone.
+  stack: ['Go', 'PHP'],
+  description: 'Software developer writing about PHP, Laravel and Go.',
+  bio: 'Software developer. PHP, Laravel and Go.',
   cvPath: '/zoran-stankovic-cv.pdf',
   social: [
     { label: 'GitHub', href: 'https://github.com/zoranstankovic' },
@@ -37,6 +38,10 @@ export const navItems: readonly NavItem[] = [
   { label: 'Books', href: '/books', feature: 'books' },
   { label: 'CV', href: site.cvPath },
 ];
+
+export function heroKicker(role: string, stack: readonly string[]): string {
+  return stack.length ? `${role} · ${stack.join(' / ')}` : role;
+}
 
 export function visibleNavItems(
   items: readonly NavItem[] = navItems,

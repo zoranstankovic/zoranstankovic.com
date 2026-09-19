@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { navItems, visibleNavItems } from './site';
+import { heroKicker, navItems, visibleNavItems } from './site';
 
 describe('visibleNavItems', () => {
   it('shows only unflagged items when every feature is off', () => {
@@ -11,5 +11,15 @@ describe('visibleNavItems', () => {
       (item) => item.label,
     );
     expect(labels).toEqual(['Writing', 'Projects', 'Now', 'Uses', 'CV']);
+  });
+});
+
+describe('heroKicker', () => {
+  it('joins the role and the stack', () => {
+    expect(heroKicker('Software developer', ['Go', 'PHP'])).toBe('Software developer · Go / PHP');
+  });
+
+  it('shows the role alone when the stack is empty', () => {
+    expect(heroKicker('Software developer', [])).toBe('Software developer');
   });
 });

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site } from '../config/site';
 import Hero from '../components/Hero.astro';
 import InfoCard from '../components/InfoCard.astro';
 import PostList from '../components/PostList.astro';
@@ -43,7 +44,7 @@ const nowLines = [
 const usesLines = ['macOS', 'Ghostty · zsh · Starship', 'JetBrains IDEs', 'Obsidian'];
 ---
 
-<Base title="Zoran Stankovic" description="Backend developer writing about PHP, Laravel and Go.">
+<Base title={site.name} description={site.description}>
   <Hero />
   <div class="container home">
     <section class="home__writing">
