@@ -28,8 +28,8 @@
   --space-8: 8rem;
 
   --measure: 42rem;
-  --page-max: 72rem;
-  --gutter: clamp(1rem, 4vw, 2rem);
+  --page-max: 65rem;
+  --gutter: clamp(1.5rem, 6.5vw, 3.5rem);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -50,6 +50,12 @@ const pathname = canonicalPath(Astro.props.pathname);
     gap: var(--space-5);
   }
 
+  @media (min-width: 1100px) {
+    .site-header__inner {
+      padding-block: var(--space-6);
+    }
+  }
+
   /* On mobile the theme toggle sits before the hamburger; the DOM keeps the
      desktop order so keyboard focus follows the wider layout. */
   @media (max-width: 767.98px) {
@@ -57,10 +63,10 @@ const pathname = canonicalPath(Astro.props.pathname);
       border-block-end: 1px solid var(--color-rule);
     }
     .site-header__inner {
-      padding-block: var(--space-3);
+      padding-block: 1.1875rem;
     }
     .site-header__brand {
-      font-size: var(--step-0);
+      font-size: 1.125rem;
       gap: var(--space-2);
     }
     .site-header__actions {

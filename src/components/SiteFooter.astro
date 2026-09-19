@@ -35,7 +35,7 @@ import HankoLogo from './HankoLogo.astro';
 
 <style>
   .site-footer {
-    margin-block-start: var(--space-8);
+    margin-block-start: 6rem;
     border-block-start: 1px solid var(--color-rule);
   }
   .site-footer__inner {
@@ -67,6 +67,12 @@ import HankoLogo from './HankoLogo.astro';
   .site-footer__links a:hover {
     color: var(--color-text);
     text-decoration: underline 1px var(--color-accent);
+  }
+
+  @media (min-width: 768px) {
+    .site-footer {
+      margin-block-start: 12rem;
+    }
   }
 
   @media (max-width: 767.98px) {

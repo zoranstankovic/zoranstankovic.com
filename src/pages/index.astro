@@ -49,6 +49,9 @@ const usesLines = ['macOS', 'Ghostty · zsh · Starship', 'JetBrains IDEs', 'Obs
     <section class="home__writing">
       <SectionHeading kanji="記事" label="Writing" href="/blog" linkLabel="All posts" />
       <PostList entries={placeholderPosts} />
+      <a class="home__more" href="/blog">
+        All posts →
+      </a>
     </section>
     <div class="home__cards">
       <InfoCard kanji="今" label="Now" href="/now" linkLabel="Updated September 2026">
@@ -70,8 +73,37 @@ const usesLines = ['macOS', 'Ghostty · zsh · Starship', 'JetBrains IDEs', 'Obs
 <style>
   .home {
     display: grid;
-    gap: var(--space-7);
-    padding-block-start: var(--space-7);
+    gap: var(--space-6);
+    padding-block-start: var(--space-6);
+  }
+
+  /* On mobile "All posts" sits below the list; from 768px it sits in the section heading. */
+  .home__more {
+    display: inline-block;
+    margin-block-start: var(--space-4);
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+  @media (max-width: 767.98px) {
+    .home__writing :global(.section-heading__link) {
+      display: none;
+    }
+  }
+  @media (min-width: 768px) {
+    .home {
+      gap: var(--space-7);
+      padding-block-start: var(--space-7);
+    }
+    .home__more {
+      display: none;
+    }
+  }
+  @media (min-width: 1100px) {
+    .home {
+      gap: var(--space-8);
+      padding-block-start: var(--space-8);
+    }
   }
   .home__cards {
     display: grid;

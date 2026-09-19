@@ -26,6 +26,20 @@ const { size = 'md' } = Astro.props;
     block-size: 2rem;
     font-size: 0.8125rem;
   }
+  @media (min-width: 768px) {
+    .hanko--md {
+      inline-size: 2.25rem;
+      block-size: 2.25rem;
+      font-size: 0.875rem;
+    }
+  }
+  @media (min-width: 1100px) {
+    .hanko--md {
+      inline-size: 2.5rem;
+      block-size: 2.5rem;
+      font-size: 0.9375rem;
+    }
+  }
   .hanko--sm {
     inline-size: 1.5rem;
     block-size: 1.5rem;

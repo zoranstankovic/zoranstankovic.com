@@ -39,11 +39,10 @@ import EnsoMark from './EnsoMark.astro';
     isolation: isolate;
     display: grid;
     padding-block: var(--space-6);
-    border-block-end: 1px solid var(--color-rule);
     overflow: clip;
     /* Lets the ensō bleed to the viewport edge on mobile without horizontal scroll. */
-    /* 4vw rather than var(--gutter): Chrome rejects clamp() in this property. */
-    overflow-clip-margin: 4vw;
+    /* 6.5vw (the preferred value of --gutter) rather than var(--gutter): Chrome rejects clamp() in this property. */
+    overflow-clip-margin: 6.5vw;
   }
 
   .hero__katakana {
@@ -51,7 +50,7 @@ import EnsoMark from './EnsoMark.astro';
     writing-mode: vertical-rl;
     font-family: var(--font-heading);
     font-size: var(--step--1);
-    letter-spacing: 0.3em;
+    letter-spacing: 0.4em;
     line-height: 1;
     color: var(--color-muted);
   }
@@ -64,8 +63,9 @@ import EnsoMark from './EnsoMark.astro';
     line-height: 1.15;
   }
   .hero__lede {
-    max-inline-size: 34rem;
-    font-size: 1.125rem;
+    max-inline-size: 29em;
+    font-size: clamp(0.9375rem, 0.85rem + 0.45vw, 1.1875rem);
+    line-height: 1.85;
     color: var(--color-muted);
   }
   .hero__links {
@@ -88,15 +88,16 @@ import EnsoMark from './EnsoMark.astro';
     position: absolute;
     z-index: -1;
     inset-block-start: var(--space-5);
-    inset-inline-end: calc(-1 * var(--gutter) - 3rem);
-    inline-size: min(22rem, 60vw);
+    inset-inline-end: -7rem;
+    inline-size: 85vw;
   }
 
   @media (min-width: 768px) {
     .hero {
       grid-template-columns: 2rem 1fr;
       column-gap: clamp(var(--space-4), 4vw, var(--space-6));
-      padding-block: var(--space-8);
+      padding-block: 4.5rem 5.5rem;
+      border-block-end: 1px solid var(--color-rule);
     }
     .hero__katakana {
       display: block;
@@ -106,8 +107,26 @@ import EnsoMark from './EnsoMark.astro';
       gap: var(--space-5);
     }
     .hero__enso {
-      inset-block-start: calc(var(--space-8) - var(--space-3));
-      inset-inline-end: 0;
+      inset-block-start: 3.25rem;
+      inset-inline-end: -1.5rem;
+      inline-size: clamp(25rem, 37.5vw, 30rem);
+    }
+  }
+
+  /* The tablet mockup wraps "them." onto a third line. */
+  @media (min-width: 768px) and (max-width: 1099.98px) {
+    .hero__title {
+      max-inline-size: 9em;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .hero {
+      padding-block: 6.5rem 9rem;
+    }
+    .hero__katakana {
+      font-size: 0.875rem;
+      letter-spacing: 0.65em;
     }
   }
 </style>
