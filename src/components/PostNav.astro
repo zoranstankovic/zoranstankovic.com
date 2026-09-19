@@ -1,0 +1,64 @@
+---
+interface Link {
+  href: string;
+  title: string;
+}
+
+interface Props {
+  previous?: Link;
+  next?: Link;
+}
+const { previous, next } = Astro.props;
+---
+
+{(previous || next) && (
+  <nav class="post-nav" aria-label="More posts">
+    {previous && (
+      <a class="post-nav__link" href={previous.href} rel="prev">
+        <span class="label">← Previous</span>
+        <span class="post-nav__title">{previous.title}</span>
+      </a>
+    )}
+    {next && (
+      <a class="post-nav__link post-nav__link--next" href={next.href} rel="next">
+        <span class="label">Next →</span>
+        <span class="post-nav__title">{next.title}</span>
+      </a>
+    )}
+  </nav>
+)}
+
+<style>
+  .post-nav {
+    display: grid;
+    gap: var(--space-5);
+    margin-block-start: var(--space-7);
+    padding-block-start: var(--space-6);
+    border-block-start: 1px solid var(--color-rule);
+  }
+  .post-nav__link {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+    text-decoration: none;
+  }
+  .post-nav__title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+  .post-nav__link:hover .post-nav__title {
+    text-decoration: underline 1px var(--color-accent);
+    text-underline-offset: 0.25em;
+  }
+  @media (min-width: 768px) {
+    .post-nav {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+    }
+    .post-nav__link--next {
+      grid-column: 2;
+      text-align: end;
+    }
+  }
+</style>

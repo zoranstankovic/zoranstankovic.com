@@ -1,0 +1,116 @@
+---
+import type { MarkdownHeading } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import AuthorCard from '../components/AuthorCard.astro';
+import PostNav from '../components/PostNav.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import TagList from '../components/TagList.astro';
+import { formatIsoDate, formatLongDate } from '../lib/format';
+import { postHref } from '../lib/posts';
+import Base from './Base.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  headings: MarkdownHeading[];
+  previous?: CollectionEntry<'blog'>;
+  next?: CollectionEntry<'blog'>;
+}
+const { post, headings, previous, next } = Astro.props;
+const link = (entry?: CollectionEntry<'blog'>) =>
+  entry && { href: postHref(entry.id), title: entry.data.title };
+---
+
+<Base title={`${post.data.title} — Zoran Stankovic`} description={post.data.description}>
+  <div class="container post">
+    <article class="post__main">
+      <a class="label post__back" href="/blog">
+        ← Writing
+      </a>
+      <p class="label post__kicker">
+        <time datetime={formatIsoDate(post.data.date)}>{formatLongDate(post.data.date)}</time> ·{' '}
+        {post.data.topic}
+      </p>
+      <h1 class="post__title">{post.data.title}</h1>
+      {post.data.description && <p class="post__lede">{post.data.description}</p>}
+      <hr class="post__rule" />
+      <div class="prose">
+        <slot />
+      </div>
+      <PostNav previous={link(previous)} next={link(next)} />
+    </article>
+    <aside class="post__aside">
+      <TableOfContents headings={headings} />
+      <AuthorCard />
+      <TagList tags={post.data.tags} />
+    </aside>
+  </div>
+</Base>
+
+<style>
+  /* minmax(0, …) keeps wide code blocks and tables from stretching the column. */
+  .post {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    padding-block-start: var(--space-6);
+  }
+  .post__back {
+    display: inline-block;
+    text-decoration: none;
+  }
+  .post__back:hover {
+    color: var(--color-text);
+  }
+  .post__kicker {
+    margin-block-start: var(--space-5);
+  }
+  .post__title {
+    margin-block-start: var(--space-4);
+    font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.5rem);
+    line-height: 1.15;
+    overflow-wrap: break-word;
+  }
+  .post__lede {
+    margin-block-start: var(--space-5);
+    font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem);
+    line-height: 1.75;
+    color: var(--color-muted);
+  }
+  .post__rule {
+    inline-size: 3rem;
+    block-size: 2px;
+    margin-block: var(--space-6);
+    border: 0;
+    background: var(--color-accent);
+  }
+  .post__aside {
+    display: grid;
+    gap: var(--space-5);
+    align-content: start;
+    padding-block-start: var(--space-5);
+    border-block-start: 1px solid var(--color-rule);
+  }
+
+  @media (min-width: 768px) {
+    .post {
+      padding-block-start: var(--space-7);
+    }
+  }
+
+  /* Desktop: the article column fills the container next to a 15rem sidebar that starts
+     level with the title, as in the mockup (720px + 5rem + 240px = --page-max). */
+  @media (min-width: 1100px) {
+    .post {
+      grid-template-columns: minmax(0, 1fr) 15rem;
+      gap: var(--space-7);
+    }
+    .post__aside {
+      position: sticky;
+      top: var(--space-5);
+      align-self: start;
+      margin-block-start: var(--space-8);
+      padding-block-start: 0;
+      border-block-start: 0;
+    }
+  }
+</style>

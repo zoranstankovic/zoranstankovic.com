@@ -1,0 +1,34 @@
+---
+import { site } from '../config/site';
+import HankoLogo from './HankoLogo.astro';
+---
+
+<section class="author" aria-label="About the author">
+  <p class="author__name">
+    <HankoLogo size="sm" />
+    <span>{site.name}</span>
+  </p>
+  <p class="author__bio">{site.bio}</p>
+</section>
+
+<style>
+  .author__name {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    line-height: 1.3;
+  }
+  .author__name :global(.hanko--sm) {
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    font-size: 0.75rem;
+  }
+  .author__bio {
+    margin-block-start: var(--space-3);
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+  }
+</style>

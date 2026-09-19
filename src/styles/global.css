@@ -65,3 +65,86 @@ pre {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* Post and page bodies rendered from Markdown. */
+.prose {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  overflow-wrap: break-word;
+}
+.prose h2 {
+  margin-block: var(--space-6) var(--space-3);
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+}
+.prose h3 {
+  margin-block: var(--space-5) var(--space-3);
+  font-size: var(--step-1);
+}
+.prose > :first-child {
+  margin-block-start: 0;
+}
+.prose p,
+.prose ul,
+.prose ol {
+  margin-block: var(--space-3);
+}
+.prose ul,
+.prose ol {
+  padding-inline-start: var(--space-4);
+}
+.prose li + li {
+  margin-block-start: var(--space-1);
+}
+.prose a {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+}
+.prose img {
+  inline-size: 100%;
+  height: auto;
+  margin-block: var(--space-5);
+}
+.prose :not(pre) > code {
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+  background: var(--color-surface);
+  font-size: 0.875em;
+}
+.prose pre {
+  margin-block: var(--space-5);
+  padding: var(--space-4);
+  overflow-x: auto;
+  border-radius: 2px;
+  background: var(--color-surface);
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+.prose blockquote {
+  margin-block: var(--space-5);
+  padding-inline-start: var(--space-4);
+  border-inline-start: 2px solid var(--color-accent);
+  color: var(--color-muted);
+}
+.prose table {
+  display: block;
+  inline-size: max-content;
+  max-inline-size: 100%;
+  margin-block: var(--space-5);
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.prose th,
+.prose td {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-rule);
+  text-align: start;
+}
+.prose th {
+  font-weight: 500;
+}
+.prose hr {
+  margin-block: var(--space-6);
+  border: 0;
+  border-block-start: 1px solid var(--color-rule);
+}
