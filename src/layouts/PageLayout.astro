@@ -1,0 +1,57 @@
+---
+import { formatIsoDate, formatMonthYear } from '../lib/format';
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  updated?: Date;
+}
+const { title, description, updated } = Astro.props;
+---
+
+<Base title={`${title} — Zoran Stankovic`} description={description}>
+  <div class="container page">
+    <article class="page__body">
+      <h1 class="page__title">{title}</h1>
+      {updated && (
+        <p class="label page__updated">
+          Updated <time datetime={formatIsoDate(updated)}>{formatMonthYear(updated)}</time>
+        </p>
+      )}
+      <hr class="page__rule" />
+      <div class="prose">
+        <slot />
+      </div>
+    </article>
+  </div>
+</Base>
+
+<style>
+  /* Same title, spacing and accent rule as the post page, at reading width. */
+  .page {
+    padding-block-start: var(--space-6);
+  }
+  .page__body {
+    max-inline-size: var(--measure);
+  }
+  .page__title {
+    font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.5rem);
+    line-height: 1.15;
+  }
+  .page__updated {
+    margin-block-start: var(--space-4);
+  }
+  .page__rule {
+    inline-size: 3rem;
+    block-size: 2px;
+    margin-block: var(--space-6);
+    border: 0;
+    background: var(--color-accent);
+  }
+  @media (min-width: 768px) {
+    .page {
+      padding-block-start: var(--space-7);
+    }
+  }
+</style>

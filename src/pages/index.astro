@@ -5,17 +5,17 @@ import Hero from '../components/Hero.astro';
 import InfoCard from '../components/InfoCard.astro';
 import PostList from '../components/PostList.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import { getEntry } from 'astro:content';
 import { getPosts } from '../lib/content';
+import { formatMonthYear } from '../lib/format';
 import { toListEntry } from '../lib/posts';
 
 const latestPosts = (await getPosts()).slice(0, 5).map(toListEntry);
 
-// Placeholder card content from the mockup; replaced with the Now and Uses pages in Task 14.
-const nowLines = [
-  'Building JobTrail: a Laravel API with a Go worker over NATS.',
-  'Improving my German, one conversation at a time.',
-];
-const usesLines = ['macOS', 'Ghostty · zsh · Starship', 'JetBrains IDEs', 'Obsidian'];
+const now = await getEntry('pages', 'now');
+const uses = await getEntry('pages', 'uses');
+// A missing file should fail the build, not render an empty card.
+if (!now || !uses) throw new Error('src/content/pages needs now.md and uses.md');
 ---
 
 <Base title={site.name} description={site.description}>
@@ -29,14 +29,19 @@ const usesLines = ['macOS', 'Ghostty · zsh · Starship', 'JetBrains IDEs', 'Obs
       </a>
     </section>
     <div class="home__cards">
-      <InfoCard kanji="今" label="Now" href="/now" linkLabel="Updated September 2026">
-        {nowLines.map((line) => (
+      <InfoCard
+        kanji="今"
+        label="Now"
+        href="/now"
+        linkLabel={now.data.updated ? `Updated ${formatMonthYear(now.data.updated)}` : 'More'}
+      >
+        {now.data.summary.map((line) => (
           <p>{line}</p>
         ))}
       </InfoCard>
       <InfoCard kanji="道具" label="Uses" href="/uses" linkLabel="Full setup">
         <ul class="home__uses">
-          {usesLines.map((line) => (
+          {uses.data.summary.map((line) => (
             <li>{line}</li>
           ))}
         </ul>
