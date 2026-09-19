@@ -1,0 +1,231 @@
+---
+title: "Boolean Data Type Explained in Go (Golang)"
+description: ""
+date: 2022-10-15
+image: "../../assets/images/posts/boolean-data-type-in-go.png"
+tags: ["go", "golang", "programming"]
+draft: false
+topic: "Go"
+type: article
+---
+import YouTube from "../../components/YouTube.astro";
+
+In this blog post we will talk about Boolean data type in Go. What are Boolean values, and how do we use them in programs? Then we will see what operations we can perform on them. Also, we will see how to use comments in Go and why they are helpful.
+
+<YouTube id="cN7KBkJWTd8" title="Boolean Data Type In Go" />
+
+Boolean values are a type of data that can be true or false. In programming, they are often used to track whether a specific condition has been met, to see if a particular statement is true or to control the execution flow. We can assign Boolean values to variables, which can also result from comparisons between values.
+
+Before we see the examples, I would like to explain comments in Go quickly. In Go, we have two types of comments:
+
+- line comment `//`
+- multi-line comment `/* This is multi-line comment */`
+
+Comments are lines of code that the program won't execute. They are there to help programmers to explain what code does. We are also using comments for documentation purposes. We use comments to disable sections of code. Just wanted to mention that shortcut to comment/uncomment code in VS Code is `Ctrl + /` and in many other Code editors and IDEs.
+Now, let's see some Boolean examples.
+We use the `bool` keyword to declare a Boolean variable.
+Here we have the `zeroValue` variable.
+A declared Boolean variable has the zero value of false.
+
+```go
+// zero value
+var zeroValue bool
+fmt.Println("Zero value for boolean is:", zeroValue)
+```
+
+When we run a program, we can see the message `"Zero value for the Boolean is false"`.
+We use a Boolean variable to track whether or not a specific condition has been met. For example, you might want to keep track of whether or not a user has entered a valid password. You would set the Boolean variable to true if the password is correct. You would set the Boolean variable to false if the password is invalid.
+We can declare a Boolean variable using a short syntax declaration.
+`isValid` column equal true.
+
+```go
+// how to declare boolean variable using
+// short declaration syntax
+isValid := true
+fmt.Println("Is password correct:", isValid)
+```
+
+When we run the program, it prints "Is password correct: true".
+Next, we have comparison operators.
+We are using comparison operators to compare two values. We can use them to determine whether a value is greater than, less than, greater than or equal to, less than or equal to, equal to, or not equal to another value.
+We can use a Boolean variable to store the result of a comparison. For example, the following code compares two integers, a and b and stores the result in a Boolean variable.
+
+```go
+// comparison operators
+// greater than: >
+// less than: <
+// greater than or equal to: >=
+// less than or equal to: <=
+// equal to: ==
+// not equal to: !=
+a := 5
+b := 7
+result := a < b
+```
+
+In this example, the result variable will be true because five is less than seven.
+Also, below we can see other comparison operators inside of Println functions.
+
+```go
+fmt.Println(a, "<", b, "is:", result)
+fmt.Println(a, ">", b, "is:", a > b)
+fmt.Println(a, "<=", b, "is:", a <= b)
+fmt.Println(a, ">=", b, "is:", a >= b)
+fmt.Println(a, "==", b, "is:", a == b)
+fmt.Println(a, "!=", b, "is:", a != b)
+```
+
+Let's print this block of code.
+And we can see the results here.
+
+```bash
+$ go run main.go
+5 < 7 is: true
+5 > 7 is: false
+5 <= 7 is: true
+5 >= 7 is: false
+5 == 7 is: false
+5 != 7 is: true
+```
+
+I want to mention that we are using the equal sign as an assignment operator and the double equal sign for comparison.
+
+```go
+// = for assignment, == for comparison
+```
+
+We can also use the Boolean data type to store the result of a logical operation. Logical operators are used to compare two values or variables and return a true or false result. The most common logical operators are AND, OR, and NOT.
+We use a double ampersand sign (&&) for AND logical operator, and it returns true if both the comparing values are true.
+We use a double pipe sign (||) for OR logical operator, and it returns true if either of the comparing values is true.
+We use an exclamation mark (!) for the NOT logical operator. NOT is a logical operator that reverses the Boolean value. NOT returns true if a statement is false.
+Let's say we want to track whether the user is logged in or not and the user's role. Depending on that, a user can access a specific part of our application.
+We can use the NOT operator to reverse the Boolean value. We can check if a user is not logged in and then display a login page. Let's set `isUserLoggedIn` to false and run the program.
+
+```go
+isUserLoggedIn := false
+fmt.Println("User is not logged in:", !isUserLoggedIn)
+```
+
+We can see the message "User is not logged in: true".
+Next, we can use AND logical operator to check if the user can access the admin section. Only if both statements are true user can have access.
+Our output will be false if the user is not logged in and the role is admin.
+
+```go
+isUserLoggedIn := false
+role := "admin"
+canAccess := isUserLoggedIn && role == "admin"
+fmt.Println("User is logged in and can access Admin section:", canAccess)
+```
+
+Output:
+
+```bash
+User is logged in and can access Admin section: false
+```
+
+When we change `isUserLoggedIn` to true, but the role is now "editor", the `canAccess` variable will still be false.
+
+```go
+isUserLoggedIn := true
+role := "editor"
+canAccess := isUserLoggedIn && role == "admin"
+fmt.Println("User is logged in and can access Admin section:", canAccess)
+```
+
+Output:
+
+```bash
+User is logged in and can access Admin section: false
+```
+
+When we change the role to "admin", the result will be true.
+
+```go
+isUserLoggedIn := true
+role := "admin"
+canAccess := isUserLoggedIn && role == "admin"
+fmt.Println("User is logged in and can access Admin section:", canAccess)
+```
+
+Output:
+
+```bash
+User is logged in and can access Admin section: true
+```
+
+Next, let's say that users can access it only if they are admins or editors. For that, we will use OR logical operator to check. If one statement is the true user can have access.
+If we set the role to admin and now run the program, we will see the result is true.
+
+```go
+role := "admin"
+canAccess = role == "admin" || role == "editor"
+fmt.Println("User is admin or editor and can access:", canAccess)
+```
+
+Output:
+
+```bash
+User is admin or editor and can access: true
+```
+
+But if we change the role to user, the result is false.
+
+```go
+role := "user"
+canAccess = role == "admin" || role == "editor"
+fmt.Println("User is admin or editor and can access:", canAccess)
+```
+
+Output:
+
+```bash
+User is admin or editor and can access: false
+```
+
+AND and OR operators have short-circuit behaviour. Let's see what this means in our examples. In our AND example, if `isUserLoggedIn` is false, the result will be false, and the program won't evaluate `role == "admin"`. It will just skip that part. Same for the OR operator, if `role == "admin"` returns true, the result will be true, and the program won't evaluate the second part.
+Next, we can combine more logical operators. Let's say we want to check if the user is logged in and the user is either admin or editor. We can do this with this expression here.
+
+```go
+isUserLoggedIn := true
+role := "editor"
+canAccess = isUserLoggedIn && (role == "admin" || role == "editor")
+fmt.Println("User is logged in and has correct role:", canAccess)
+```
+
+When we run it now, we can see that the expression returns true.
+
+```bash
+User is logged in and has correct role: true
+```
+
+Let's see what will happen now if I remove paratheses and set `isUserLoggedIn` to false. What do you think the result of this expression will be?
+
+```go
+isUserLoggedIn := false
+role := "editor"
+canAccess = isUserLoggedIn && role == "admin" || role == "editor"
+fmt.Println("User is logged in and has correct role:", canAccess)
+```
+
+Output:
+
+```bash
+User is logged in and has correct role: true
+```
+
+When we run the program, we can see that result is true, but we expected maybe to be false because the user is not logged in. With operators, there is an order of precedence. Precedence is the rule that specifies the order in which certain operations need to be performed in an expression. To see the complete list of Operator precedence in Go visit this [link](https://go.dev/ref/spec#Operator_precedence).
+But regarding logical operators, the order is next, first is NOT, then AND and last is OR. Let's return to our example and see what happened there.
+When we removed paratheses, we changed the order of execution. Because AND has higher precedence, the program executed it first. `isUserLoggedIn` was false and `role == "admin"` was also false. This expression evaluates to false. Then, in the end, we checked false || true because `role == "editor"` was true. And that expression returns true.
+
+```go
+isUserLoggedIn := false
+role := "editor"
+canAccess = isUserLoggedIn && role == "admin" || role == "editor"
+// false && false || true
+// false || true
+// returns true
+```
+
+When you want to change the order of execution, use parentheses.
+We can use Boolean values and expressions to control the flow of execution. But more about that when we learn if statements, for loops and switch statements.
+You can find a PDF for this lecture with all truth tables for comparison and logical operators and code in my [GitHub repository](https://github.com/zoranstankovic/go-basics/tree/boolean) `boolean` branch.

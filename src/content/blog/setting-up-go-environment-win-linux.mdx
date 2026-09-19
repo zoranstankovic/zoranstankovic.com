@@ -1,0 +1,148 @@
+---
+title: "Setting up Go work environment on Windows, Linux and MacOS"
+description: ""
+date: 2022-08-21
+image: "../../assets/images/posts/setting-up-go-env.jpg"
+tags: ["go", "golang", "programming"]
+draft: false
+topic: "Go"
+type: article
+---
+import YouTube from "../../components/YouTube.astro";
+
+In this blog post, we will show how to set up a Go work environment on Windows, Linux and MacOS. Also, we will show a couple of IDE options and how to set up the VS Code for Go. In the end, we will write a small test program to see that everything works.
+
+<YouTube id="BNXSxZ4v3jw" title="Setting up Go work environment" />
+
+## Installing Go on Windows
+
+Open your browser and type `https://www.go.dev`.
+This is the official Go page. Then click on Download button.
+On this page, you can see multiple OS versions. We need one for Windows. Download the latest version.
+After download is finished, run the program.
+Then click the Next button.
+By default, the installer will install Go to `Program Files`. If you want, you can change the location. Press Next button.
+Check I accept and click Next.
+After the installation is finished, click the finish button.
+Now open your favorite terminal, on Windows (PowerShell or Command Prompt). If you want a Unix like terminal on Windows, you can install git bash.
+For git bash visit this link `https://git-scm.com/downloads`, download and install it.
+Note: If your terminal was open during the installation of Go, please restart your terminal to see the changes.
+To see that Go installation was successful, type this command in your terminal:
+
+```
+go version
+```
+
+You should see a message with an installed version of the Go.
+
+```
+go version go1.19 windows/amd64
+```
+
+## Installing Go on Linux
+
+Open your browser and navigate to `www.go.dev`.
+This is the official Go page. Click on Download button.
+Here find and download Linux archive.
+After the download is finished we need to open the terminal.
+On Ubuntu you can press `Ctrl + Shift + T` to open a terminal.
+Navigate to Downloads folder or where ever you saved the file.
+
+```bash
+cd Downloads
+```
+
+If you already installed Go we need to first remove the older version. For that we need to execute this command:
+
+```bash
+sudo rm -rf /usr/local/go
+```
+
+After we removed the older version or we are installing for the first time. We need to extract archive that we just downloaded to `/usr/local/` folder.
+For that, we need to run this command:
+
+```bash
+sudo tar -C /usr/local -xzf go1.19.linux-amd64.tar.gz
+```
+
+Now we need to add `/usr/local/go/bin` to the `PATH` environment variable to our $HOME/.profile or /etc/profile (for a system-wide use). To do that,
+Steps would be to open in you editor of choice e.g.
+
+```bash
+nano $HOME/.profile
+```
+
+and then add this line of code `export PATH=$PATH:/usr/local/go/bin` to it. Save file and exit.
+
+Changes that we made here won't apply until next time we log into our computer. To see changes immediately, we just need to run this command:
+
+```bash
+source $HOME/.profile
+```
+
+And finally, to see that we installed Go. We just need to type:
+
+```bash
+go version
+```
+
+Here we can see a message with an installed version of Go.
+
+## Install Go on MacOS
+
+Visit the official Go page `www.go.dev`.
+Click on the download button, and on the next page, download the latest version of Go for MacOS.
+Open the package file that you just downloaded and follow the prompts to install Go.
+When you install the package on MacOS, you don't need to do manual work like in Linux. The package will install the Go distribution to `/usr/local/go` and also it should put the `/usr/local/go/bin` directory in your `PATH` environment variable.
+Note: If your terminal was open during the installation of Go, maybe you would need to restart it to see the changes.
+To verify that Go is now installed on our system, open your terminal and type this command:
+
+```bash
+go version
+```
+
+In your terminal you should see the message with Go version.
+
+## Go Editor options
+
+Apart from Go that we previously installed, you need to have Git installed as well.
+If you already installed the Git Bash, you have also a Git installed. If not,
+You can download it from the Git website (https://git-scm.com/downloads) or install it with your package manager.
+Next we would need to install IDE (Integrated Development Environment) or text editor of your choice:
+I will just mention a couple of options.
+
+- GoLand (https://www.jetbrains.com/go/) from JetBrains, it's paid software. If you like their products, you can go with this one.
+- for VIM users there is a Go extension that you can use (https://github.com/fatih/vim-go)
+- and the last one that I will use is the VS Code. It's free editor from Microsoft and I think it's an excellent option for Go. (https://code.visualstudio.com/)
+
+## Setting Up VS Code
+
+What we need to do first is to install the Go extension.
+Go to extensions and search for Go.
+We need to select the first one developed by `Go team at Google` and click the Install button.
+For Go extension to work properly, we need to install Go Tools.
+To do that, we need to open Command Palette.
+By going to `View` and then click on `Command Palette` or by pressing `Ctr + Shift + P` (on Windows and Linux) or `Cmd + Shift + P` on MacOS.
+And then we type `Go Install/Update Tools`. Here we click on Go Install/Update Tools and then check the box to select all tools and press ok.
+After we installed successfully all tools.
+
+We can test that everything is working by creating one small program and run it.
+
+1. Create file `main.go`
+2. Type or copy and paste code below:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello World!")
+}
+```
+
+3. Save the file and open the terminal. To open terminal in VS Code use `Ctrl + ~(tilde)`
+4. To run Go program type `go run main.go`
+5. Program should print `Hello World!` to your terminal.
+
+And that's it. You just set your Go environment.

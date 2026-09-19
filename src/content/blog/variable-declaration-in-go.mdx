@@ -1,0 +1,166 @@
+---
+title: "Variable Declaration in Go (Golang)"
+description: "How to declare variable in Go (Golang)"
+date: 2022-08-14
+image: "../../assets/images/posts/variable-declaration-in-go.jpg"
+tags: ["go", "golang", "programming"]
+draft: false
+topic: "Go"
+type: article
+---
+import YouTube from "../../components/YouTube.astro";
+
+There are two ways of declaring variables in Go:
+
+1. using the `var` keyword
+2. using `:=` short declaration operator
+
+<YouTube id="TlUQXeJm9HE" title="Variable declaration in Go" />
+
+## Declaring variables using `var` keyword
+
+To declare variable using `var` keyword we need to do next:
+
+```go
+//var variableName type = value
+var dog string = "Akamaru"
+```
+
+This is longer way to declare a variable and initialize it at the same time. We can also omit variable type if we immediately assign a value to it.
+
+```go
+var dog = "Akamaru"
+```
+
+In this case Go will infer the type of initialized variable. In this case it will be type of string.
+In Go, the type of a variable is specified after the variable name.
+
+```go
+var age int
+```
+
+Here we declared a variable to be of type integer but we didn't initialize it. In this case Go will automatically assign the default zero-value for that type. In our example here zero-value for `int` type is `0`. Also we have zero-value for string type is `""` (empty string), boolean is `false` etc.
+So after we declared a variable now we can assign a value to it.
+
+```go
+age = 3
+```
+
+We can also declare multiple variables at once
+
+```go
+var pointA, pointB = 1, 2
+```
+
+## Declaring variables using `:=` short declaration operator
+
+When we declare variable using short declaration operator we don't specify the type. Type is determined by the value or expression on the right-hand side of the operator.
+
+```go
+color := "blue"
+```
+
+In this example inferred type of `color` variable is `string`.
+Also we can declare multiple variables using it.
+
+```go
+fruit, vegetable := "tomato", "carrot"
+```
+
+You can not use this shorthand syntax to assign a value to already pre-declared variable.
+
+```go
+age := 5 // this will throw an NoNewVar error
+```
+
+Here we will have `NoNewVar` error which occurs when this short variable declaration does not declare new variables. But there is a way to reassign the value of existing variable as long as there is one new variable on the left-hand side.
+
+```go
+age, height := 5, 180
+```
+
+Now the value of variable `age` will be `5`.
+Important thing is that short declaration operator can't be used at package level it must be used inside of the function.
+Let's see on one example:
+
+```go
+package main
+
+pet := "cat" // this will cause the syntax error: non-declaration statement outside function body
+
+// ❌ don't do this it's a bad pracitce
+var pet = "cat" // here we can use var keyword to define variables
+
+func main() {
+	pet := "cat" // here we can use it
+}
+```
+
+Basically on this example we can see that shorthand syntax can be used only inside of the functions but not on a package level. If you need to declare variable on a package level you need to use `var` keyword. Go will allow to do this but it's not good practice to declare variables at package level. It's very hard to track the changes of that variables and that can lead to a bugs.
+
+In Go if we declare local variables and then not use them compiler will complain about it and your program won't run. This is general rule. It doesn't matter how you declared a variable.
+
+```go
+var food string
+food = "pizza"
+
+x := 2
+```
+
+In both cases we will get `UnusedVar` error.
+But if you declare variable on a package level and never use it compiler won't complain about it. So this is one more reason to avoid declaring package level variables.
+
+## Summary
+
+In summary use `:=` short declaration operator when you want to declare and initialize the variable inside of a functions.
+
+```go
+x := 2
+```
+
+And when you want to initialize the variable to its zero value for a later use in function then use `var` keyword.
+
+```go
+var food string
+```
+
+Full version of code for a reference:
+
+```go
+package main
+
+import "fmt"
+
+// pet := "cat"
+var pet = "cat"
+
+func main() {
+	// var dog string = "Akamaru"
+	var dog = "Akamaru"
+	fmt.Println("value of dog is", dog)
+
+	var age int
+	fmt.Println("age value is", age)
+	age = 3
+	fmt.Println("age value is", age)
+
+	var pointA, pointB = 1, 2
+	fmt.Println("pointA", pointA, "pointB", pointB)
+
+	color := "blue"
+	fmt.Println("color is", color)
+
+	fruit, vegetable := "tomato", "carrot"
+	fmt.Println("Yes", fruit, "is fruit")
+	fmt.Println(vegetable, "is vegetable")
+
+	// age := 5
+	age, height := 5, 180
+	fmt.Println("height is", height, "and age is", age)
+
+	var food string
+	food = "pizza"
+
+	x := 2
+}
+```

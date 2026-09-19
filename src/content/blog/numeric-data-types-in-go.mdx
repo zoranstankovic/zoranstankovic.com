@@ -1,0 +1,282 @@
+---
+title: "Numeric Data Types Explained in Go (Golang)"
+description: ""
+date: 2022-10-29
+image: "../../assets/images/posts/numeric-data-types-in-go.jpg"
+tags: ["go", "golang", "programming"]
+draft: false
+topic: "Go"
+type: article
+---
+import YouTube from "../../components/YouTube.astro";
+
+In this article, we will talk about Numeric data types in Go, including integers, decimals and complex numbers. We will see how to declare variables of these types, perform arithmetic operations, compare them, and convert between them.
+
+<YouTube id="Q06YpbR3aU8" title="Numeric Data Types In Go" />
+
+## What are numeric data types?
+
+Numeric data types in programming are data types that represent numeric values. We have three numeric data types in Go:
+
+- integers,
+- floating point and
+- complex numbers.
+
+Integers represent a whole number, while floating point represents a number with a decimal point and complex numbers are numbers that have both real and imaginary parts.
+[Download](https://github.com/zoranstankovic/go-basics/tree/numerics) the PDF from the GitHub page to check all built-in numeric data types in Go and their range values.
+
+### Integers
+
+Let's see some examples for each of them.
+
+```go
+var x = 5
+fmt.Println("Value of x is:", x)
+fmt.Println("Default type of x is:", reflect.TypeOf(x))
+fmt.Println("Zero value for", reflect.TypeOf(x), "is:", reflect.Zero(reflect.TypeOf(x)))
+```
+
+We can declare variable x to be five. We will let our compiler infer the type for us. That way, we can see what the default data type is. Next, let's print the value of x using the `Println` function. To see the default type of x, we will use reflect package and its `TypeOf` method. The reflect package offers runtime introspection, which is the ability to access and interact with values of arbitrary types at runtime. Each value in Go has two attributes: its actual value and its type. The `reflect.TypeOf()` function can tell us about the type of any value. We can use a Zero function to check what is the zero value for a particular type. Let's use the Zero function to see the zero value of type int.
+
+```bash
+$ go run main.go
+Value of x is: 5
+Default type of x is: int
+Zero value for int is: 0
+```
+
+When we run the program, we can see that value of x is five. Then using `reflect.TypeOf()` function for variable `x` we can see that default type is `int`. The zero value for `int` is zero.
+If you want to learn more about reflect package check [link](https://pkg.go.dev/reflect).
+
+### Floating-point Numbers
+
+Next, we will declare a variable y to be 7.85. And again, we will check its value, default type and zero value.
+
+```go
+var y = 7.85
+fmt.Println("Value of y is", y)
+fmt.Println("Default type of y is:", reflect.TypeOf(y))
+fmt.Println("Zero value for", reflect.TypeOf(y), "is:", reflect.Zero(reflect.TypeOf(y)))
+```
+
+When we run the program, we can see that value of y is 7.85, the default type is float64, and the zero value is zero.
+
+```bash
+$ go run main.go
+Value of y is 7.85
+Default type of y is: float64
+Zero value for float64 is: 0
+```
+
+### Complex Numbers
+
+Next, we need to use the built-in `complex` function to declare complex numbers.
+
+```go
+var z1 = complex(2, 5)
+var z2 = 3 + 2i
+fmt.Println("Value of z1 is:", z1)
+fmt.Println("Value of z2 is:", z2)
+fmt.Println("Default type of z1 is:", reflect.TypeOf(z1))
+fmt.Println("Zero value for", reflect.TypeOf(z1), "is:", reflect.Zero(reflect.TypeOf(z1)))
+```
+
+The complex function accepts two arguments first is a real part, and the second one is an imaginary part, and both are of floating point type. Also, we can declare complex numbers using the initialization syntax that we can see for our z2 variable.
+
+```bash
+$ go run main.go
+Value of z1 is: (2+5i)
+Value of z2 is: (3+2i)
+Default type of z1 is: complex128
+Zero value for complex128 is: (0+0i)
+```
+
+We can see that the default type is complex128, and the zero value is zero for both real and imaginary parts.
+If we want to extract real and imaginary parts, we can use built-in functions `real()` and `imag()`.
+
+```go
+var realPart = real(z1)
+var imaginary = imag(z1)
+fmt.Println("Real part is:", realPart)
+fmt.Println("Imaginary part is", imaginary)
+```
+
+When we run program we can see that real part is 2 and imaginary part is 5.
+
+```bash
+Real part is: 2
+Imaginary part is 5
+```
+
+Let's declare the variable a with a type of int8 and assign 200 to it if we know that the maximal value for int8 is 127.
+
+```go
+var a int8 = 200 // max value for int8 is 127
+fmt.Println("The value of a is:", a)
+```
+
+What do you think will happen if we run the program now?
+
+```bash
+$ go run main.go
+# command-line-arguments
+.\main.go:27:15: cannot use 200 (untyped int constant) as int8 value in variable declaration (overflows)
+```
+
+We will get an overflow error because we tried to initialize a number with a value that's too big for the type we are using.
+To fix this, I will change the value to 127. And let's add a 1 to it.
+
+```go
+var a int8 = 127
+fmt.Println("The value of a is:", a)
+a = a + 1
+fmt.Println("New value of a is:", a)
+```
+
+What do you think will happen now? Let's print the variable a and see.
+
+```bash
+$ go run main.go
+The value of a is: 127
+New value of a is: -128
+```
+
+Hmm, it's -128? Yes, in this case, the number wraparound. That means the number goes from its highest to its smallest possible value. And the smallest value for int8 is -128. Note here: Wraparound can be easily missed during development and later cause bugs for our users.
+
+### Arithmetic Operations
+
+Let's see what operation we can perform on our numeric data types. We already saw that we could use addition.
+
+```go
+// Arithmetic operations
+fmt.Println("2+3i + 3+2i =", (2+3i)+(3+2i)) // addition using complex numbers
+fmt.Println("7.5 - 2.3 =", 7.5-2.3)
+fmt.Println("2 * 5 =", 2*5)
+fmt.Println("5 / 2 =", 5/2)
+fmt.Println("12 % 5 =", 12%5) // only for integers
+```
+
+Besides this, we can use subtraction, multiplication, division and remainder. In these examples here, we can see arithmetic operations in action. Note here: remainder operator is only available for integers. Let's run the program and see the results.
+
+```bash
+$ go run main.go
+2+3i + 3+2i = (5+5i)
+7.5 - 2.3 = 5.2
+2 * 5 = 10
+5 / 2 = 2
+12 % 5 = 2
+```
+
+### Comparison Operators
+
+For all numeric data types, we can use comparison operators. Using comparison operators, we can compare two values of the same type.
+We will declare two integers, `i1` and `i2`, to be 20 and 25. And we will check if `i1` is greater than, less than, greater than or equal to, and less than or equal to `i2`. Also, we will declare two complex values and check for equality.
+
+```go
+// Comparison operators
+var i1 = 20
+var i2 = 25
+fmt.Println("Is i1 greater than i2:", i1 > i2)
+fmt.Println("Is i1 less than i2:", i1 < i2)
+fmt.Println("Is i1 greater than or equal to i2:", i1 >= i2)
+fmt.Println("Is i1 less than or equal to i2:", i1 <= i2)
+var c1 = 2 + 3i
+var c2 = 2 + 5i
+fmt.Println("Is c1 equal to c2:", c1 == c2)
+fmt.Println("Is c1 not equal to c2:", c1 != c2)
+```
+
+Let's run the program and see the results.
+
+```bash
+$ go run main.go
+Is i1 greater than i2: false
+Is i1 less than i2: true
+Is i1 greater than or equal to i2: false
+Is i1 less than or equal to i2: true
+Is c1 equal to c2: false
+Is c1 not equal to c2: true
+```
+
+We can see that complex numbers are not equal. Both real and imaginary parts must be equal for complex numbers to be equal.
+In Go, all numeric data types are different, so we cannot use an arithmetic operation or a comparison of numeric values of different types.
+
+```go
+var a = 25   // int
+var b = 4.23 // float64
+var c = a + b
+```
+
+If we declare the variable a to be 25 and variable b to be 4.23 and try to add a to b, we will get an error:
+
+```bash
+$ go run main.go
+# command-line-arguments
+.\main.go:54:10: invalid operation: a + b (mismatched types int and float64)
+```
+
+`int` has a different size depending on CPU architecture: 32 or 64 bits. On my machine, int will have a size of int64 if we declare `a` to be 25 and `b` of type int64 to be 7. Even if they have the same size, they are still not the same type, and we can not use them to perform arithmetic or comparison operations. The reason is that creators wanted to avoid portability issues.
+
+```go
+var a = 25 // int
+var b int64 = 7
+var c = a + b
+```
+
+We will still get the same error as before.
+
+```bash
+$ go run main.go
+# command-line-arguments
+.\main.go:58:10: invalid operation: a + b (mismatched types int and int64)
+```
+
+### Conversions
+
+Suppose we want to do arithmetic operations or a comparison. We need to convert one value into another. And it's straightforward to do in Go. We use this syntax `type(value)` to do the conversion. We can successfully transform from one type of number to another, but we must be careful. We can lose some data. Here are some examples.
+
+```go
+var a = 25
+var b = 4.23
+var c = a + b
+fmt.Println("Value of c is:", c)
+```
+
+We already saw this example where we wanted to add int and float64 together. So to do that, we need to convert either a to float64 or b to int.
+Let's first convert int into float64. To do that, type float64 and inside parentheses, put a.
+
+```go
+var a = 25
+var b = 4.23
+var c = float64(a) + b
+fmt.Println("Value of c is:", c)
+```
+
+Now when we run the program, we can see that value of c is 29.23.
+
+```bash
+$ go run main.go
+Value of c is: 29.23
+```
+
+Okay, let's see what will happen when we convert float64 into an int.
+
+```go
+var a = 25
+var b = 4.23
+var c = a + int(b)
+fmt.Println("Value of c is:", c)
+```
+
+When we run the program, we can see that value of c is 29.
+
+```bash
+$ go run main.go
+Value of c is: 29
+```
+
+Go will truncate the decimal part when we convert from a float to an int. One note here is that converting from a larger type like int64 into a smaller type like int8 will cause the number to overflow.
+
+## Summary
+
+In summary, we saw how to use integers, floating-point and complex numbers. We should always use the int type to declare integers unless we have a specific reason to use a size or unsigned integer type. Also, we know when the overflow error is happening and what a wraparound is. We explained how to declare complex numbers using the complex function and initialization syntax. We saw the default values for all numeric types and how to check for types in Golang using the reflect package. To download a PDF for this lesson with a code check [link](https://github.com/zoranstankovic/go-basics/tree/numerics) to the GitHub repository.

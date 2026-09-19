@@ -1,0 +1,110 @@
+---
+title: "Basic Package File Structure and go.mod File Explained in Go (Golang)"
+description: ""
+date: 2022-09-04
+image: "../../assets/images/posts/basic-package-in-go.jpeg"
+tags: ["go", "golang", "programming"]
+draft: false
+topic: "Go"
+type: article
+---
+import YouTube from "../../components/YouTube.astro";
+
+In this blog post we will talk about basic package file structure and a bit of modules.
+
+In my [previous](./basic-structure-of-go-program-explained/) blog post, I explained how the Go program works. Now we will focus on how Go files are grouped together. As we know, Go programs are organized into packages. All source files in the same directory belong to the same package.
+
+<YouTube id="fRKaKP_h6gg" title="Basic Package File Structure in Go" />
+
+Let's open our Hello World example from the last post. We created a file named `hello.go`.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello World!")
+}
+```
+
+Small exercise for you. You can try to do it on your own. It's very similar to the Hello World example.
+
+1.  Inside of your directory create new Go file and name it `greetings`
+2.  This file should belong to a `main` package
+3.  Create a function named `greet`. It doesn't accept any parameters. It's just printing “Greetings to You!”
+4.  Hint to print a message to a console. Use `Println` function from `fmt` package.
+
+Let's open our editor and create a new file `greetings.go`. As we know, all Go source files start with a `package` keyword. In our case, this file belongs to the `main` package.
+Now let's create a new function. To create a function, we need to use a `func` keyword followed by function name in our case it's `greet` and empty parenthesis (), because our function doesn't accept any parameters. In the function body, we will use `fmt` package and `Println` function to print “Greetings to You!”. We can notice here that using VS code, `fmt` package was imported for us automatically. If this is not the case for you, then you should type `import “fmt”`.
+Your new `greetings.go` file should look like this:
+
+```go
+package main
+
+import "fmt"
+
+func greet() {
+	fmt.Println("Greetings to You!")
+}
+```
+
+Now that we added our `greet` function to our main package, we can use it inside of `hello.go` file.
+Let's call our `greet` function from `hello.go`.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello World!")
+	// call greet function
+	greet()
+}
+```
+
+To build and run this program. We would need to create a `go.mod` file.
+Before we create the file, let's explain what are modules. We use modules in Go to manage dependencies. A module is a collection of packages that are released, versioned, and distributed together. `go.mod` file is like `package.json` file in NPM, if you are a JavaScript developer, or `composer.json` file if you are a PHP developer. If you are a beginner and you don't understand this. It's okay I will try to explain modules in my future posts. I think it's a little advanced topic. For now, what is import for you to know is following command `go mod init [module path]` and what it does.
+Let see it in action. Here we have `go mod init` command and we need to give it a module path. In our example module path will be `example.com/structure`. If we want to publish this module, this path must be a path to our code's repository where this module can be downloaded by Go tools.
+Open your terminal navigate to you project directory and execute this command:
+
+```bash
+go mod init example.com/structure
+```
+
+The `go mod init` command created a `go.mod` file to track our code's dependencies. Let's open the file.
+
+```txt
+module example.com/structure
+
+go 1.19
+```
+
+Our `go.mod` file will include only the name of our module, in our case it's `example.com/structure` and the Go version our code supports, for me it's version 1.19. This version is one that I am currently using, for you maybe some other version depending on which one you have installed.
+This is an example of `go.mod` file from `golang/tools` repository.
+
+```txt
+module golang.org/x/tools
+
+go 1.18
+
+require (
+	github.com/yuin/goldmark v1.4.13
+	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4
+	golang.org/x/net v0.0.0-20220722155237-a158d28d115b
+	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4
+	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f
+	golang.org/x/text v0.3.7
+)
+```
+
+On the first line, we can see module path to a code repository `golang.org/x/tools` . Then Go version the code supports which is 1.18. Then `require` block where they specified minimum required versions of module dependencies.
+Finally, we can run or build our program. Now that we have `go.mod` file we can omit name when we run or build our program. For the name Go will use the last part of our module path specified in `go.mod` file. In our case, it's `structure`. To run a program, we can type `go run .`. This will compile and run files in the current directory.
+In terminal we can see “Hello World!” and “Greetings to You!” printed.
+Same should be if we want to build our program. We can type `go build`. This will build an executable file inside of our directory named `structure`. Now, let's run it.
+Open terminal and type `.\structure.exe` if you are on Windows and for Linux and MacOS type just name of the file `./structure`.
+We should see the same results as before.
+In summary we learned that if you define functions in the same package but in other source file. This function can be called in any other source file, within the same package, without being imported.
+Also, we learned a bit about modules and how Go used them to track dependencies. How `go mod init` command is used to create `go.mod` file. Also, saw one `go.mod` real world example.
+When we run `go build` command, the name of the executable file will be the same as one specified at the end of the module path (e.g. `example.com/structure`). File will be named **structure**.

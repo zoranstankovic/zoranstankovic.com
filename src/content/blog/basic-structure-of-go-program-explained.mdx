@@ -1,0 +1,153 @@
+---
+title: "Basic Structure of Go Program Explained (Golang)"
+description: ""
+date: 2022-08-28
+image: "../../assets/images/posts/basic-structure-go.jpg"
+tags: ["go", "golang", "programming"]
+draft: false
+topic: "Go"
+type: article
+---
+import YouTube from "../../components/YouTube.astro";
+
+In this blog post we will explain basic structure of Go program using "Hello World" example. I used this example, in my blog post, to test that our Go work environment works. If you need to set up Go environment on your machine, check [this](../setting-up-go-work-environment-on-windows-linux-and-macos/) blog post.
+
+```go
+// file name hello.go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello World!")
+}
+
+```
+
+<YouTube id="nPbtsAUkEbw" title="Hello World Explained In Go" />
+
+In almost every Go file you would see this 3 sections:
+
+1. Package
+2. Import statements
+3. Code
+
+Go programs are organized into packages, which are similar to libraries or modules in other languages. For example Go standard library provides different packages like `time`, `log`. Packages are usually a collection of code that correlates to a single concept. Every `.go` source file should start with `package` keyword followed by package name. `package` keyword tell us which package this file belongs to. In our case it's `main`.
+
+```go
+package main
+```
+
+`main` has a special meaning, it tells Go compiler that we want to compile this program as an executable, and not use it as a library.
+
+Next, we have `import` section. We can have one or more import statements. To use code from other package, we need to import it first.
+
+```go
+import "fmt"
+```
+
+Here, we imported `fmt` package. It's from standard library and allow us to format and output data. We can import more than one package using group import. For that we need to use `import` keyword followed by parenthesis `()`. Inside we need to add package names we want to import as strings.
+
+```go
+import (
+	"fmt"
+	"log"
+)
+```
+
+Now, our code will fail to compile, because we imported a `log` package without using it. Program also won't compile if there are missing imports. We need to keep only packages that we are using, this will help us with faster compile time.
+
+```go
+package main
+
+import (
+	"fmt"
+	"log" // "log" imported but not used
+)
+
+func main() {
+	fmt.Println("Hello World!")
+}
+```
+
+Next we have our code section.
+
+```go
+func main() {
+	fmt.Println("Hello World!")
+}
+```
+
+The `func` keyword declares a function. In our case here function named `main`. We mentioned that package `main` has special meaning in Go, same is for a `main` function. When we execute program the first thing that will run is `main` function in `main` package. After function name we have in parenthesis parameters, in our case it's empty. And then functions body enclosed in curly braces `{}`. Go is very strict about where you should place your curly braces. We need to make sure that opening brace `{` is on the same line as the `func` keyword and closing brace `}` is on its own line.
+
+If we put an opening brace on a separate line from the `func` keyword, the Go compiler will throw an syntax error.
+
+```go
+// will compile
+function main() {
+	fmt.Println("Hello World!")
+}
+
+// won't compile
+function main() // compailer will insert ; here
+{ // unexpected semicolon or newline before {
+	fmt.Println("Hello World!")
+}
+```
+
+For this error we should thank our Go compiler for inserting semicolons at the ends of statements or declarations. What happened here is that, Go compiler inserted semicolon `;` after parenthesis. And this is not valid Go syntax. We got `syntax error: unexpected semicolon or newline before {`.
+
+Now this is good time to explain how to read an error.
+
+```bash
+# command-line-arguments
+.\hello.go:6:1: syntax error: unexpected semicolon or newline before {
+```
+
+First we have name of the file (`.\hello.go`), then line number where the error occurred (`6`), followed by character number within the line where the error occurred (`1`). And after that we have description of the error (`unexpected semicolon or newline before {`).
+
+On the next line we can see the use of `fmt` package and its `Println` function.
+
+```go
+fmt.Println("Hello World!")
+```
+
+To call or invoke functions from imported packages we need to type package name as a prefix, a dot, then name of the function followed by parenthesis `()`. In our case, `Println` (where `ln` stands for line) will print one or more values, separated by spaces, with a newline character at the end. We can see that on this example.
+
+```go
+function main() {
+	fmt.Println("Hello World!")
+	fmt.Println("Hello", "YouTube!")
+}
+```
+
+Let's now compile and run our program using the Go tools.
+Open your terminal and navigate to your program directory.
+I will open terminal in VS Code. Shortcut is `Ctrl + ~` (tilde) on Windows and Linux, `Cmd + ~` on Mac OS.
+To compile and run the program we can use `go run` command and then name of the Go program we want to execute. For us it's `hello.go`.
+
+```bash
+go run hello.go
+```
+
+This command will compile the source code from one or more source files, connect it with libraries, and run the resulting executable binary.
+We have "Hello World!" and on the new line we have "Hello YouTube!".
+
+```bash
+"Hello World!"
+"Hello Youtube!"
+```
+
+When we want to build Go programs as executables for a later use, we can use the `go build` command followed by name of the Go program.
+
+```bash
+go build hello.go
+```
+
+The build command will put compiled binary file into package folder. Binary file will be named after the first source file we used for build command. We used `go build hello.go` so our file name will be `hello`. On Windows `.exe` suffix is added to a binary file. Now to run our program we need to type name of our binary file. Open terminal and type `./hello.exe` if you are on Windows and for Linux and Mac OS type just name of the file `./hello`.
+We should see the same output as before.
+
+```bash
+"Hello World!"
+"Hello Youtube!"
+```
