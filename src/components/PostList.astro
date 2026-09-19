@@ -1,0 +1,22 @@
+---
+import type { PostListEntry } from '../lib/types';
+import PostListItem from './PostListItem.astro';
+
+interface Props {
+  entries: PostListEntry[];
+}
+const { entries } = Astro.props;
+---
+
+<ul class="post-list">
+  {entries.map((entry) => (
+    <PostListItem entry={entry} />
+  ))}
+</ul>
+
+<style>
+  .post-list {
+    list-style: none;
+    padding: 0;
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+import { formatIsoDate } from '../lib/format';
+import type { PostListEntry } from '../lib/types';
+
+interface Props {
+  entry: PostListEntry;
+}
+const { entry } = Astro.props;
+---
+
+<li class="post-row">
+  <a class="post-row__link" href={entry.href}>
+    <time class="post-row__date" datetime={formatIsoDate(entry.date)}>
+      {formatIsoDate(entry.date)}
+    </time>
+    <span class="post-row__title">{entry.title}</span>
+    <span class="post-row__topic">{entry.topic}</span>
+  </a>
+</li>
+
+<style>
+  .post-row {
+    border-block-end: 1px solid var(--color-rule);
+  }
+  .post-row__link {
+    display: grid;
+    padding-block: var(--space-4);
+    text-decoration: none;
+  }
+  .post-row__date,
+  .post-row__topic {
+    font-size: var(--step--1);
+    color: var(--color-muted);
+  }
+  .post-row__date {
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+  .post-row__title {
+    font-family: var(--font-heading);
+    font-size: var(--step-1);
+    line-height: 1.35;
+  }
+  .post-row__link:hover .post-row__title {
+    text-decoration: underline 1px var(--color-accent);
+    text-underline-offset: 0.25em;
+  }
+
+  /* Mobile: `date · topic` on one label line above the title. */
+  @media (max-width: 767.98px) {
+    .post-row__link {
+      grid-template-columns: auto 1fr;
+      grid-template-areas:
+        'date topic'
+        'title title';
+      row-gap: var(--space-1);
+    }
+    .post-row__date,
+    .post-row__topic {
+      font-family: var(--font-mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .post-row__date {
+      grid-area: date;
+    }
+    .post-row__topic {
+      grid-area: topic;
+    }
+    .post-row__topic::before {
+      content: '\00a0·\00a0';
+    }
+    .post-row__title {
+      grid-area: title;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .post-row__link {
+      grid-template-columns: clamp(8rem, 16vw, 13rem) 1fr auto;
+      align-items: baseline;
+      column-gap: var(--space-4);
+      padding-block: var(--space-5);
+    }
+  }
+</style>

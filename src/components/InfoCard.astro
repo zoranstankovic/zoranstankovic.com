@@ -1,0 +1,61 @@
+---
+interface Props {
+  kanji: string;
+  label: string;
+  href?: string;
+  linkLabel?: string;
+}
+const { kanji, label, href, linkLabel } = Astro.props;
+---
+
+<section class="info-card">
+  <h2 class="info-card__title">
+    <span class="info-card__kanji" lang="ja">
+      {kanji}
+    </span>
+    <span class="label">{label}</span>
+  </h2>
+  <div class="info-card__body">
+    <slot />
+  </div>
+  {href && linkLabel && (
+    <a class="info-card__link" href={href}>
+      {linkLabel} →
+    </a>
+  )}
+</section>
+
+<style>
+  .info-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: var(--color-surface);
+  }
+  .info-card__title {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+  .info-card__kanji {
+    font-size: var(--step-1);
+    line-height: 1;
+  }
+  .info-card__body {
+    font-size: 0.9375rem;
+  }
+  .info-card__body > :global(* + *) {
+    margin-block-start: var(--space-3);
+  }
+  .info-card__link {
+    margin-block-start: auto;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+  .info-card__link:hover {
+    color: var(--color-text);
+    text-decoration: underline 1px var(--color-accent);
+  }
+</style>

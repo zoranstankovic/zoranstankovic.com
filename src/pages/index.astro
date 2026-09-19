@@ -1,8 +1,88 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
+import InfoCard from '../components/InfoCard.astro';
+import PostList from '../components/PostList.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import type { PostListEntry } from '../lib/types';
+
+// Placeholder rows from the mockup; replaced with real posts in Task 11.
+const placeholderPosts: PostListEntry[] = [
+  { href: '#', title: 'Strings in Go: An Introduction', date: new Date('2022-11-20'), topic: 'Go' },
+  {
+    href: '#',
+    title: 'Get Up to Speed with Bytes, Runes and Printf in Go',
+    date: new Date('2022-11-12'),
+    topic: 'Go',
+  },
+  {
+    href: '#',
+    title: 'Numeric Data Types Explained in Go',
+    date: new Date('2022-10-29'),
+    topic: 'Go',
+  },
+  {
+    href: '#',
+    title: 'Boolean Data Type Explained in Go',
+    date: new Date('2022-10-15'),
+    topic: 'Go',
+  },
+  {
+    href: '#',
+    title: 'Data Types in Go: An Introduction',
+    date: new Date('2022-10-05'),
+    topic: 'Go',
+  },
+];
+
+// Placeholder card content from the mockup; replaced with the Now and Uses pages in Task 14.
+const nowLines = [
+  'Building JobTrail: a Laravel API with a Go worker over NATS.',
+  'Improving my German, one conversation at a time.',
+];
+const usesLines = ['macOS', 'Ghostty · zsh · Starship', 'JetBrains IDEs', 'Obsidian'];
 ---
 
 <Base title="Zoran Stankovic" description="Backend developer writing about PHP, Laravel and Go.">
   <Hero />
+  <div class="container home">
+    <section class="home__writing">
+      <SectionHeading kanji="記事" label="Writing" href="/blog" linkLabel="All posts" />
+      <PostList entries={placeholderPosts} />
+    </section>
+    <div class="home__cards">
+      <InfoCard kanji="今" label="Now" href="/now" linkLabel="Updated September 2026">
+        {nowLines.map((line) => (
+          <p>{line}</p>
+        ))}
+      </InfoCard>
+      <InfoCard kanji="道具" label="Uses" href="/uses" linkLabel="Full setup">
+        <ul class="home__uses">
+          {usesLines.map((line) => (
+            <li>{line}</li>
+          ))}
+        </ul>
+      </InfoCard>
+    </div>
+  </div>
 </Base>
+
+<style>
+  .home {
+    display: grid;
+    gap: var(--space-7);
+    padding-block-start: var(--space-7);
+  }
+  .home__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--space-5);
+  }
+  .home__uses {
+    list-style: none;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.8;
+  }
+</style>

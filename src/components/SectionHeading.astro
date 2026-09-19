@@ -1,0 +1,54 @@
+---
+interface Props {
+  kanji: string;
+  label: string;
+  href?: string;
+  linkLabel?: string;
+  level?: 2 | 1;
+}
+const { kanji, label, href, linkLabel, level = 2 } = Astro.props;
+const Heading = level === 1 ? 'h1' : 'h2';
+---
+
+<div class="section-heading">
+  <Heading class="section-heading__title">
+    <span class="section-heading__kanji" lang="ja">
+      {kanji}
+    </span>
+    <span class="label">{label}</span>
+  </Heading>
+  {href && linkLabel && (
+    <a class="section-heading__link" href={href}>
+      {linkLabel} →
+    </a>
+  )}
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-block-end: var(--space-4);
+    border-block-end: 1px solid var(--color-text);
+  }
+  .section-heading__title {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+  .section-heading__kanji {
+    font-size: var(--step-2);
+    line-height: 1;
+  }
+  .section-heading__link {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+  .section-heading__link:hover {
+    color: var(--color-text);
+    text-decoration: underline 1px var(--color-accent);
+  }
+</style>
