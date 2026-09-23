@@ -8,7 +8,9 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "verify:redirects": "node scripts/verify-redirects.mjs",
+    "verify:content": "! grep -l '^description: \"\"' src/content/blog/* && ! grep -q '^description:.*part 1' src/content/blog/execution-context-in-javascript-pt-2.md && grep -q '^draft: false' src/content/pages/impressum.md"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",
