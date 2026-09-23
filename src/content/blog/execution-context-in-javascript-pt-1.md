@@ -1,6 +1,6 @@
 ---
 title: "Execution Context in JavaScript (Part 1.)"
-description: "Explanation for execution context in JavaScript part 1."
+description: "In this post, we will see what an execution context is in JavaScript and how the global execution context is created. We will look at its two phases and explain what hoisting is."
 date: 2020-11-15
 image: "../../assets/images/posts/execution-context-1.jpg"
 tags: ["javascript", "programming"]

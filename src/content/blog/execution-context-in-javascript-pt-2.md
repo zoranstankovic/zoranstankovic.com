@@ -1,6 +1,6 @@
 ---
 title: "Execution Context in JavaScript (Part 2.)"
-description: "Explanation for execution context in JavaScript part 1."
+description: "In this second part, we will see how the global and function execution contexts differ in JavaScript. Then we will look at how the call stack tracks function calls."
 date: 2020-12-06
 image: "../../assets/images/posts/execution-context-2.jpg"
 tags: ["javascript", "programming"]

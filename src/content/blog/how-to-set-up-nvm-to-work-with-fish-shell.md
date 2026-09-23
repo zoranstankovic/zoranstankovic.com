@@ -1,6 +1,6 @@
 ---
 title: "How to set up nvm to work with fish shell?"
-description: "How to set up nvm to work with fish shell."
+description: "In this post, we will see how to set up `nvm` to work with fish shell. After that, we will look at how to install and switch between Node.js versions using `nvm` commands."
 date: 2019-11-30
 image: "../../assets/images/posts/nvm-fish-shell.jpg"
 tags: ["shell", "howTo", "terminal"]
