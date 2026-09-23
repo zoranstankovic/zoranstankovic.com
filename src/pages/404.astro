@@ -1,0 +1,68 @@
+---
+import EnsoMark from '../components/EnsoMark.astro';
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Not found — Zoran Stankovic" description="This page does not exist." canonical={false}>
+  <section class="container not-found">
+    <div class="not-found__enso">
+      <EnsoMark />
+    </div>
+    <p class="label">404</p>
+    <h1 class="not-found__title">Page not found</h1>
+    <p class="not-found__text">The page you are looking for has moved or never existed.</p>
+    <p class="not-found__links">
+      <a class="not-found__link not-found__link--primary" href="/">
+        Home →
+      </a>
+      <a class="not-found__link" href="/blog">
+        Writing →
+      </a>
+    </p>
+  </section>
+</Base>
+
+<style>
+  /* The ensō sits behind the text, centred on the block, as in the hero. */
+  .not-found {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    justify-items: center;
+    gap: var(--space-5);
+    padding-block: var(--space-8);
+    text-align: center;
+    overflow: clip;
+  }
+  .not-found__enso {
+    position: absolute;
+    z-index: -1;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    inline-size: min(80vw, 24rem);
+    translate: -50% -50%;
+  }
+  .not-found__title {
+    font-size: var(--step-4);
+    line-height: 1.15;
+  }
+  .not-found__text {
+    max-inline-size: 29em;
+    color: var(--color-muted);
+  }
+  .not-found__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-5);
+    padding-block-start: var(--space-2);
+  }
+  .not-found__link {
+    padding-block-end: var(--space-1);
+    border-block-end: 1px solid var(--color-rule);
+    text-decoration: none;
+  }
+  .not-found__link--primary {
+    border-block-end-color: var(--color-accent);
+  }
+</style>

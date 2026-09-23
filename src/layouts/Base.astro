@@ -2,14 +2,18 @@
 import '../styles/fonts.css';
 import '../styles/tokens.css';
 import '../styles/global.css';
+import Seo from '../components/Seo.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 
 interface Props {
   title: string;
   description: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  canonical?: boolean;
 }
-const { title, description } = Astro.props;
+const { title, description, type, publishedTime, canonical } = Astro.props;
 ---
 
 <html lang="en">
@@ -31,8 +35,13 @@ const { title, description } = Astro.props;
       })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <Seo
+      title={title}
+      description={description}
+      type={type}
+      publishedTime={publishedTime}
+      canonical={canonical}
+    />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>

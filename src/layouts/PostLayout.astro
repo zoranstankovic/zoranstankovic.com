@@ -20,7 +20,12 @@ const link = (entry?: CollectionEntry<'blog'>) =>
   entry && { href: postHref(entry.id), title: entry.data.title };
 ---
 
-<Base title={`${post.data.title} — Zoran Stankovic`} description={post.data.description}>
+<Base
+  title={`${post.data.title} — Zoran Stankovic`}
+  description={post.data.description}
+  type="article"
+  publishedTime={post.data.date}
+>
   <div class="container post">
     <article class="post__main">
       <a class="label post__back" href="/blog">
