@@ -30,3 +30,27 @@
 
 # Short link to the CV
 /cv                /zoran-stankovic-cv.pdf   301
+
+# Trailing-slash forms. Netlify served the old site with trailing slashes, so these are the
+# indexed and bookmarked URLs. Pages does not match them to the exact rules above (splat rules
+# such as /tags/* already cover /tags/).
+/basic-package-file-structure/                /blog/basic-package-file-structure                 301
+/basic-structure-of-go-program-explained/     /blog/basic-structure-of-go-program-explained      301
+/boolean-data-type-in-go/                     /blog/boolean-data-type-in-go                      301
+/byte-and-runes-in-go/                        /blog/byte-and-runes-in-go                         301
+/compile-go-programs-for-multiple-os/         /blog/compile-go-programs-for-multiple-os          301
+/data-types-in-go/                            /blog/data-types-in-go                             301
+/execution-context-in-javascript-pt-1/        /blog/execution-context-in-javascript-pt-1         301
+/execution-context-in-javascript-pt-2/        /blog/execution-context-in-javascript-pt-2         301
+/how-to-create-library-in-go/                 /blog/how-to-create-library-in-go                  301
+/how-to-set-up-nvm-to-work-with-fish-shell/   /blog/how-to-set-up-nvm-to-work-with-fish-shell    301
+/how-to-study/                                /blog/how-to-study                                 301
+/numeric-data-types-in-go/                    /blog/numeric-data-types-in-go                     301
+/setting-up-go-environment-win-linux/         /blog/setting-up-go-environment-win-linux          301
+/strings-in-go/                               /blog/strings-in-go                                301
+/variable-declaration-in-go/                  /blog/variable-declaration-in-go                   301
+/search/           /blog        301
+/contact/          /            301
+/about/            /            301
+/privacy-policy/   /impressum   301
+/cv/               /zoran-stankovic-cv.pdf   301
