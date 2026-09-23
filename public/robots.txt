@@ -1,0 +1,2 @@
+# Cloudflare prepends its crawler rules (Bot Preference Sync) when serving this file.
+Sitemap: https://zoranstankovic.com/sitemap-index.xml
